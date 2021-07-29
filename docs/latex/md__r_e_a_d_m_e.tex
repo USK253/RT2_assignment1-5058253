@@ -1,0 +1,49 @@
+The purpose of this package is to control a non-\/holomonic mobile robot in a Gazebo or in a Coppelia environment. The user can choose to start the robot or to stop it. In the moment when the user gives the commando to move the robot, a random pose is chosen and the robot start moving in that direction. This movement continues until the robot reachs the goal and a new random pose is sent. \hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{Description of the branch}\label{md__r_e_a_d_m_e_autotoc_md1}
+In the main branch you can find four nodes\+: two nodes implemented as python scripts and the other two as C++ file. Each folder contains\+:
+\begin{DoxyItemize}
+\item V\+Rep\+\_\+scene\+: to simulate the robot in a Coppelia environment, it is available a simple scene {\itshape my\+\_\+scene.\+ttt} with a Pioneer p3dx mobile robot in an empty environment
+\item launch\+: there are thre different .launch file
+\begin{DoxyItemize}
+\item sim.\+launch\+: starts the simulation in a Gazebo environment
+\item bridge\+\_\+sim.\+launch\+: it is dedicated to launch only the python scripts, due to the fact that the components of ros2 take care of the leaving part.
+\item coppelia\+\_\+sim.\+launch\+: starts the simulation in a Coppelia environment.
+\end{DoxyItemize}
+\item scripts\+: two nodes implemented as python scripts that set the behaviour of the robot
+\begin{DoxyItemize}
+\item {\itshape go\+\_\+to\+\_\+point}\+: this is the server that manage the robot speed control, depending on the goal received.
+\item {\itshape user\+\_\+interface}\+: sends the request to start/stop the go\+\_\+to\+\_\+point behaviour asking to the user what the robot needs to do.
+\end{DoxyItemize}
+\item src\+: two nodes implemented as C++ file that set the behaviour of the robot
+\begin{DoxyItemize}
+\item {\itshape position\+\_\+server}\+: it is the server that generates a random position.
+\item {\itshape state\+\_\+machine}\+: manage the request of a new goal and it sends the request as a goal to go\+\_\+to\+\_\+point server.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{How to compile and run the package}\label{md__r_e_a_d_m_e_autotoc_md2}
+After cloning the package, it is necessary to build the package in the path of your own workspace, with the command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{catkin\_make}
+\end{DoxyCode}
+
+
+When the package is build successfully, you have three options, depending on what is your goal\+:
+\begin{DoxyItemize}
+\item to start the simulation in Gazebo, it is necessary to run\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{roslaunch rt2\_assignment1 sim.launch}
+\end{DoxyCode}
+
+\item to start the simulation in Coppelia, it is necessary to run\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{roslaunch rt2\_assignment1 coppelia\_sim.launch}
+\end{DoxyCode}
+
+
+N.\+B\+: Unlike Gazebo, Coppelia needs to start separately.
+\item to launch only the python scripts, it is necessary to run\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{roslaunch rt2\_assignment1 bridge\_sim.launch}
+\end{DoxyCode}
+ 
+\end{DoxyItemize}
