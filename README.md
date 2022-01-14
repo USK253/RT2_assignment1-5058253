@@ -1,39 +1,25 @@
-# S5058253
-# SASI KUMAR UPPATALA
-# RESEARCH TRACK 2 - Assignment 1: main branch
-The purpose of this package is to control a non-holomonic mobile robot in a Gazebo or in a Coppelia environment. The user can choose to start the robot or to stop it. In the moment when the user gives the commando to move the robot, a random pose is chosen and the robot start moving in that direction. This movement continues until the robot reachs the goal and a new random pose is sent. 
+# RESEARCH TRACK 2 - Assignment 1: ros2 branch
+The purpose of this package is to communicate with nodes written in ROS1 package to control a non-holonomic mobile robot in a Gazebo environment. The user can choose to start the robot and to stop it. In the moment when the user decides to make moving the robot, a random pose is choosen and the robot start moving in that direction. This movement continues until the robot reachs the goal and a new random pose is sent. 
 ## Description of the branch
+In this folder you can find: 
+- launch: here it is contained the *sim_launch.py*, needed to instantiate a container and to load the components into. 
+- src: contains the two nodes implemented as C++ files
+  - *position_server*: implements the server for a random (x,y,theta) pose.
+  - *state_machine*: calls the random goal and sends to *go_to_point* service, when the user wants to move the robot.
+## How to compile and run the package 
+In order to communicate with ROS1, we need three different steps: 
+- Launch the component from ROS!, so in the shell where you sourced ROS1
 
-In the main branch you can find four nodes: two nodes implemented as python scripts and the other two as C++ file. Each folder contains:
-- VRep_scene: to simulate the robot in a Coppelia environment, it is available a simple scene *my_scene.ttt* with a Pioneer p3dx mobile robot in an empty environment
-- launch: there are thre different .launch file
-   - sim.launch: starts the simulation in a Gazebo environment
-   - bridge_sim.launch: it is dedicated to launch only the python scripts, due to the fact that the components of ros2 take care of the leaving part.
-   - coppelia_sim.launch: starts the simulation in a Coppelia environment.
-- scripts: two nodes implemented as python scripts that set the behaviour of the robot
-   - *go_to_point*: this is the server that manage the robot speed control, depending on the goal received.
-   - *user_interface*: sends the request to start/stop the go_to_point behaviour asking to the user what the robot needs to do.
-- src: two nodes implemented as C++ file that set the behaviour of the robot
-   - *position_server*: it is the server that generates a random position.
-   - *state_machine*: manage the request of a new goal and it sends the request as a goal to go_to_point server.
-
-## How to compile and run the package
-After cloning the package, it is necessary to build the package in the path of your own workspace, with the command:
-
-```
-catkin_make
-```
-When the package is build successfully, you have three options, depending on what is your goal:
-- to start the simulation in Gazebo, it is necessary to run:
-```
-roslaunch rt2_assignment1 sim.launch
-```
-- to start the simulation in Coppelia, it is necessary to run:
-```
-roslaunch rt2_assignment1 coppelia_sim.launch
-```
- N.B: Unlike Gazebo, Coppelia needs to start separately.
-- to launch only the python scripts, it is necessary to run:
 ```
 roslaunch rt2_assignment1 bridge_sim.launch
 ```
+- Run the ROS1 bridge, where you source both ROS1 and ROS2
+```
+ros2 run ros1_bridge dynamic_bridge
+```
+- Launch the container with the componentes implemented, where you sourced ROS2
+```
+roslaunch rt2_assignment1 sim_launch.py
+```
+## Documentation
+In the doc folder, beside this README, it is possible to find all the documentation generated with Doxygen 
