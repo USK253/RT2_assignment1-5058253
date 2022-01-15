@@ -22,4 +22,4 @@ ros2 run ros1_bridge dynamic_bridge
 roslaunch rt2_assignment1 sim_launch.py
 ```
 ## Documentation
-In the doc folder, beside this README, it is possible to find all the documentation generated with Doxygen 
+In the doc folder beside this README, it is possible to find all the documentation generated with Doxygen 
